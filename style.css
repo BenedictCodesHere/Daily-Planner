@@ -16,7 +16,7 @@ input:focus, textarea:focus, select:focus{
   outline: none;
 }
 textarea :focus {
-  background: aliceblue;
+  background: #d3d3d3;
   border: none;
   resize: none;
   color: #000000;

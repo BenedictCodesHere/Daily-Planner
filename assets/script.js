@@ -24,3 +24,18 @@ $('.form-outline').on('click', function(event){
     console.log('clicked')
     }
 );
+
+$('.saveBtn').on('click', function (event) {
+   var clickedNumber = $(this).parent().parent().attr('data-number');
+   console.log(clickedNumber);
+   var textInput = $(this).parent().prev().children().val()
+   let SaveData = function(message, hour) {
+    this.message = message;
+    this.hour = hour;
+   }
+   console.log(textInput);
+   let freshSaveData = new SaveData(textInput, clickedNumber);
+   console.log(freshSaveData)
+   localStorage.setItem('freshSaveData', JSON.stringify(freshSaveData))
+})
+
