@@ -1,3 +1,5 @@
+let thisHour = moment().format('HH');
+console.log(thisHour);
 let retrievedObject = localStorage.getItem('dataObject');
 let parsedObject = JSON.parse(retrievedObject);
 console.log(parsedObject);
@@ -14,6 +16,8 @@ for (let i = 9; i < 17; i++) {
    var newBlock = $('.time-block').last()
    newBlock.attr('data-number', i+1);
    newBlock.children().first().text(`${i + 1}:00`)
+
+   
    // newBlock.children().eq(1).children().text(parsedObject[i+1])
    // console.log(newBlock.children().first().text)
    // console.log('Newblock.first is:' + newBlock.first());
@@ -22,6 +26,18 @@ for (let i = 9; i < 17; i++) {
    //newBlock.first().text(i)
 
 }
+
+var filteredHour = $('.time-block').filter(function(){
+   return $(this).data("number") == thisHour;
+})
+
+var presentBox = filteredHour.children().eq(1);
+
+presentBox.addClass('present');
+presentBox.children().addClass('present');
+
+
+console.log(filteredHour);
 
 
 
@@ -33,7 +49,7 @@ $('.form-outline').on('click', function(event){
 );
 
 
-const dataObject = parsedObject
+const dataObject = parsedObject;
 
 
 
