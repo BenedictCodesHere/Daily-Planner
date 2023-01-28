@@ -1,5 +1,13 @@
 let thisHour = moment().format('HH');
 console.log(thisHour);
+let now = moment();
+
+function setTime() {
+   now = moment();
+   $('#currentDay').text(now);
+}
+setInterval(setTime, 1000)
+
 
 let parsedObject = {
    9:"",
@@ -25,12 +33,17 @@ $('.button-box').css('padding', '0px')
 $('.saveBtn').css({'width': '100%', 'height': '100%', 'border':'none', 'margin':'0', 'padding': '0'});
 $('i').css('font-size', '25px');
 
-for (let i = 9; i < 20; i++) {
-   $('.form-control').eq(i - 9).text(parsedObject[i])
+for (let i = 9; i < 17; i++) {
+   console.log($('.form-control'));
+   $('.form-control').eq(i - 9).text(parsedObject[i]);
    $('.time-block').eq(0).clone().appendTo('#time-block-container');
    var newBlock = $('.time-block').last()
    newBlock.attr('data-number', i+1);
    newBlock.children().first().text(`${i + 1}:00`)
+
+   if (i == 16) {
+      $('.form-control').eq(8).text(parsedObject[17]);
+   }
 
    
    // newBlock.children().eq(1).children().text(parsedObject[i+1])
@@ -58,7 +71,7 @@ for (let index = 0; index < futureHour.length; index++) {
    
    var futureBoxes = $(misanthrope).children().eq(1)
 
-   console.log(futureBoxes)
+
    futureBoxes.addClass('future')
    futureBoxes.children().addClass('future');
    //misanthrope.children().eq(1);
