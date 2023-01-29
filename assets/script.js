@@ -1,5 +1,7 @@
-let thisHour = moment().format('HH');
+let momentumag = (moment().format('HH'));
+let thisHour = Number(momentumag);
 console.log(thisHour);
+console.log(typeof thisHour)
 let now = moment();
 
 function setTime() {
@@ -25,6 +27,8 @@ let retrievedObject = localStorage.getItem('dataObject');
 if (retrievedObject != null) {
    parsedObject = JSON.parse(retrievedObject);
 }
+
+console.log(parsedObject);
 
 
 $('.hour').css({'justify-content': 'flex-end', 'align-items': 'center'});
@@ -59,24 +63,32 @@ var presentHour = $('.time-block').filter(function(){
    return $(this).data("number") == thisHour;
 })
 
+console.log(presentHour);
+// var futureHour = $('.time-block').filter(function(){
+//    if(Number($('.time-block').data('number')) > thisHour){
+//       return $('.time-block').data("number");
+//    }
+   
+// })
 var futureHour = $('.time-block').filter(function(){
    return $(this).data("number") > thisHour;
 })
-console.log(futureHour);
+
+ console.log(futureHour);
+
 
 for (let index = 0; index < futureHour.length; index++) {
 
-   var misanthrope = futureHour[index];
+   var currentBox = futureHour[index];
 
    
-   var futureBoxes = $(misanthrope).children().eq(1)
-
-
-   futureBoxes.addClass('future')
-   futureBoxes.children().addClass('future');
-   //misanthrope.children().eq(1);
-   //.children().eq(1).addClass('future');
-  // futureBox.children().addClass('future');
+   var futureBox = $(currentBox).children().eq(1);
+   futureBox.removeClass('past');
+   futureBox.children().eq(0).removeClass('past');
+   futureBox.addClass('future');
+   futureBox.children().eq(0).addClass('future');
+   futureBox.children().eq(1).addClass('future');
+  futureBox.children().addClass('future');
 }
 
 var presentBox = presentHour.children().eq(1);
@@ -90,20 +102,28 @@ console.log(presentHour);
 console.log(presentBox.children())
 
 
-$('.form-outline').on('click', function(event){
-    event.preventDefault();
+// if event.target IS IN A ROW THAT HAS A VALUE GREATER THAN THISHOUR THEN
+// MAKE SURE THAT WHATEVER THE EVENT TARGET IS, IS STYLED ACCORDING TO THE FUTURE
+// STYLINGS (STAYS GREEN)
+
+
+$('.form-outline').on('mousedown', function(event){
+    // event.preventDefault();
     console.log(event.target);
-    console.log(presentBox[0]);
-    console.log(presentBox.children()[0]);
+    var brutal = event.target;
+    console.log(brutal);
+    
     if(event.target == presentBox[0] || event.target == presentBox.children()[0]) {
       console.log('just clicked me')
       $(this).find('textarea').focus();
       $(":focus").css('background-color', '#ff6961');
-   } else if(event.target == futureBoxes || event.target == futureBoxes.children()[0]) {
-      console.log('future clickage')
+   } else if($(brutal).hasClass('future')) {
+      console.log('future clickage');
+      $(this).find('textarea').focus();
+      $(":focus").css('background-color', '#77dd77');
    } else {
-      $(this).find('textarea').focus().css({'color':'white', 'background-color':'#d3d3d3'});
-      console.log('clicked')
+      $(this).find('textarea').focus().css({'color':'white', 'background-color':'black'});
+      console.log('clicked');
    }
    
    
