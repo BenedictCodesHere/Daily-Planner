@@ -137,66 +137,91 @@ for (let index = 0; index < futureHour.length; index++) {
    futureBox.children().eq(0).removeClass('past');
    futureBox.addClass('future');
    futureBox.children().eq(0).addClass('future');
-   futureBox.children().addClass('future');
 }
 
 
+// presentBox just does a similar thing, targeting the "form-outline" div of the
+// current timeblock.
 var presentBox = presentHour.children().eq(1);
 
-// this section simply adds the "present" class to the relevant div and textarea.
-presentBox.addClass('present');
+// and we remove the class "past" and add the class "present" to the "form-outline" div
+// and the textarea child.
 presentBox.removeClass('past');
-presentBox.children().addClass('present');
+presentBox.addClass('present');
 presentBox.children().removeClass('past');
+presentBox.children().addClass('present');
 
 
 console.log(presentHour);
+console.log(presentBox.children());
 
-console.log(presentBox.children())
 
-
+// this section targets all of the "form-outline" divs, and listens for a mousedown event.
 $('.form-outline').on('mousedown', function(event){
     console.log(event.target);
     var brutal = event.target;
     console.log(brutal);
+    
+    // this condition checks whether the mousedown occurred on the current hour div
+    // or the current hour textarea.
     if(event.target == presentBox[0] || event.target == presentBox.children()[0]) {
-      console.log('just clicked me')
+
+     // and it logs a message
+      console.log('in the here and now');
+      // and ensures that the textarea remains the color it should. 
       $(this).find('textarea').focus();
       $(":focus").css('background-color', '#ff6961');
+
+      // this condition does the same, but for the future timeblocks.
    } else if($(brutal).hasClass('future')) {
-      console.log('future clickage');
+      console.log('in the future');
       $(this).find('textarea').focus();
       $(":focus").css('background-color', '#77dd77');
+
+      // and this condition does the same, but for the past timeblocks.
    } else {
+      console.log('in the past');
       $(this).find('textarea').focus().css('background-color','#d3d3d3');
-      console.log('clicked');
       };
    });
 
+
+   // this part initialises workdayObject. It either will be an empty string, or whatever
+   // parsedObject retrieved from localStorage.
 const workdayObject = parsedObject;
 
-
+   // this part targets the save buttons, and when clicked,
 $('.saveBtn').on('click', function (event) {
+
+   // grabs the data-number of the relevant timeblock,
    var clickedNumber = $(this).parent().parent().attr('data-number');
    console.log(clickedNumber);
+
+   // grabs whatever text the user has input into the timeblock's textarea,
    var textInput = $(this).parent().prev().children().val();
 
-
+   // and this function, upon being called, will assign
+   // the textInput to the relevant numbered key in the workdayObject.
    let assignData = function(workdayObjectParam, messageParam, clickedNumberParam) {
       for (const property in workdayObjectParam) {
          if(property == clickedNumberParam) {
             workdayObjectParam[property] = messageParam;
+            // It also prints a lovely message to the console, showing that those values
+            // are in fact being passed to the workdayObject.
             console.log(`Here it is lads -  ${property}: ${workdayObjectParam[property]}`);
           };
        };
    };
 
+      // This line is of course crucial, as here we actually call the function,
+      // plugging our workdayObject, textInput, and clickedNumber values into 
+      // the placeholder parameters.
       assignData(workdayObject, textInput, clickedNumber);
       console.log(workdayObject);
+
+      // and the final section passes the workdayObject to localStorage.
       localStorage.setItem('workdayObject', JSON.stringify(workdayObject));
-      retrievedObject = localStorage.getItem('workdayObject');
-      parsedObject = JSON.parse(retrievedObject);
-      console.log(parsedObject);
+    
 });
 
 
