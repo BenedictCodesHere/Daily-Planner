@@ -2,7 +2,7 @@
 A daily planner, set from 0900 to 1700 (typical working hours), built using jQuery.
 
 ## Deployed Application
-[Code Quiz](https://benedictcodeshere.github.io/Daily-Planner/)
+[Daily Planner](https://benedictcodeshere.github.io/Daily-Planner/)
 
 ## Description
 This application is designed for a person who works from 0900 to 1700, split into hour blocks. It displays the current time, highlights the current hour in red, future hours in green, and past hours in grey. The user can type in the colored boxes, and save their text 
