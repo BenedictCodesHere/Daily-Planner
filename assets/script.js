@@ -24,7 +24,7 @@ $('i').css('font-size', '25px');
 
 // Initialising Variables
 let stringHour = (moment().format('HH'));
-let thisHour = Number(15);
+let thisHour = Number(stringHour);
 let now = moment();
 
 // Function to run every second. Displaying current time.
@@ -221,7 +221,17 @@ $('.saveBtn').on('click', function (event) {
 
       // and the final section passes the workdayObject to localStorage.
       localStorage.setItem('workdayObject', JSON.stringify(workdayObject));
-    
+
+      // here we create the text that pops up, alerting the user that their appointment
+      // has been saved to localStorage. The string "localStorage" is styled red, for 
+      // clarity.
+      var savedAlert = $('<p>').html('Appointment added to <span style="color: red">localStorage<span>');
+      savedAlert.appendTo('header');
+      function doStuff() {
+         savedAlert.remove();
+         }
+      var myTimer = setTimeout(doStuff, 3000);
+       myTimer();
 });
 
 
